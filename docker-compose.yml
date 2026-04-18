@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+version: "3.8"
+
+services:
+  swag:
+    image: lscr.io/linuxserver/swag:latest
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - URL=${URL}
+      - SUBDOMAINS=wildcard
+      - VALIDATION=dns
+      - DNSPLUGIN=cloudflare
+      - EMAIL=${EMIAL}
+      - SWAG_AUTORELOAD=true          # Highly recommended!
+    volumes:
+      - swag_config:/config
+      - ./swag-config/nginx:/config/nginx:ro   # ← Git-managed configs (read-only)
+      - swag_certs:/config/etc/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"   # QUIC
+    networks:
+      - proxy_net
+    restart: unless-stopped
+
+  portainer:
+    image: portainer/portainer-ce:lts
+    container_name: portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - proxy_net
+    restart: unless-stopped
+
+networks:
+  proxy_net:
+    external: true
+
+volumes:
+  swag_config:      # Persistent volume for certs, logs, etc.
+  swag_certs:
+  portainer_data:
