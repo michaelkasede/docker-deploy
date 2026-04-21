@@ -15,12 +15,11 @@ services:
       - SUBDOMAINS=wildcard
       - VALIDATION=dns
       - DNSPLUGIN=cloudflare
-      - EMAIL=${EMIAL}
+      - EMAIL=${EMAIL}
       - SWAG_AUTORELOAD=true          # Highly recommended!
     volumes:
       - swag_config:/config
-      - ./swag-config/nginx/proxy-confs:/config/nginx/proxy-confs:rw   # ← Git-managed configs (read-only)
-      - swag_certs:/config/etc/letsencrypt
+      - ./swag-config/nginx/proxy-confs:/config/nginx/proxy-confs:rw
     ports:
       - "80:80"
       - "443:443"
