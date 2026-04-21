@@ -19,7 +19,7 @@ services:
       - SWAG_AUTORELOAD=true          # Highly recommended!
     volumes:
       - swag_config:/config
-      - ./swag-config/nginx:/config/nginx:ro   # ← Git-managed configs (read-only)
+      - ./swag-config/nginx/proxy-confs:/config/nginx/proxy-confs:rw   # ← Git-managed configs (read-only)
       - swag_certs:/config/etc/letsencrypt
     ports:
       - "80:80"
