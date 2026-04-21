@@ -21,6 +21,7 @@ services:
     volumes:
       - swag_config:/config
       #- ./swag-config/nginx/proxy-confs:/config/nginx/proxy-confs:rw
+      - ./cloudflare.ini:/config/dns-conf/cloudflare.ini:ro
     ports:
       - "80:80"
       - "443:443"
