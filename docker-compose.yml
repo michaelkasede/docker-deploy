@@ -19,8 +19,7 @@ services:
       - EMAIL=${EMAIL}
       - SWAG_AUTORELOAD=true          # Highly recommended!
     volumes:
-      - swag_config:/config
-      #- ./swag-config/nginx/proxy-confs:/config/nginx/proxy-confs:rw
+      - swag-config:/config
       - ./cloudflare.ini:/config/dns-conf/cloudflare.ini:ro
     ports:
       - "80:80"
@@ -45,6 +44,5 @@ networks:
     external: true
 
 volumes:
-  swag_config:      # Persistent volume for certs, logs, etc.
-  swag_certs:
+  swag-config:
   portainer_data:
