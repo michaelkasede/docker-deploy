@@ -19,7 +19,7 @@ services:
       - SWAG_AUTORELOAD=true          # Highly recommended!
     volumes:
       - swag_config:/config
-      - ./swag-config/nginx/proxy-confs:/config/nginx/proxy-confs:rw
+      #- ./swag-config/nginx/proxy-confs:/config/nginx/proxy-confs:rw
     ports:
       - "80:80"
       - "443:443"
