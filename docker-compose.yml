@@ -19,7 +19,7 @@ services:
       - EMAIL=${EMAIL}
       - SWAG_AUTORELOAD=true          # Highly recommended!
     volumes:
-      - swag-config:/config
+      - ./swag-config:/config
       - ./cloudflare.ini:/config/dns-conf/cloudflare.ini:ro
     ports:
       - "80:80"
@@ -44,5 +44,4 @@ networks:
     external: true
 
 volumes:
-  swag-config:
   portainer_data:
